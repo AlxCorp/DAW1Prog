@@ -1,3 +1,6 @@
+# 12. Pide al usuario dos pares de números x1,y1 y x2,y2, que representen dos puntos en el plano.
+#    Calcula y muestra la distancia entre ellos.
+
 # Este programa calcula la distancia entre dos puntos en el plano
 # Author: Alejandro Priego Izquierdo
 # Date: 1/10/2022

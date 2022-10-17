@@ -2,8 +2,8 @@
 # cuanto deberá pagar finalmente por su compra.
 
 totalCompra = float(input("Indica el total de la compra: "))    # Pedimos el total
-descuento = 0.85                                                # Declaramos el descuento
+DESCUENTO = 0.85                                                # Declaramos el descuento (Constante)
 
-totalDescuento = totalCompra * descuento     # Aplicamos el descuento
+totalDescuento = totalCompra * DESCUENTO     # Aplicamos el descuento
 
 print("El total de la compra es de", totalDescuento, "€")    # Imprimimos el resultado
