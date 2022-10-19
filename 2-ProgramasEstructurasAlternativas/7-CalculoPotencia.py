@@ -8,8 +8,8 @@ print("Este programa calculará la potencia")
 print("-----------------------------------")
 
 # Preguntamos los números
-base = input("Indica la base: ")
-exp = input("Indica el exponente: ")
+base = float(input("Indica la base: "))
+exp = float(input("Indica el exponente: "))
 
 operation = pow(base, exp)  # Usamos la función pow para elevar
 
