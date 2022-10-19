@@ -17,7 +17,14 @@ characterASCI = ord(character)
 
 match characterASCI:
     case 44 | 46 | 58 | 59:
-        print("El signo", character, "Es un signo de Puntuación")
+        print("El carácter", character, "es un signo de Puntuación")
+        quit()
 
 if character.isalpha():
-    print("El carácter es una Letra")
+    print("El carácter", character, "es una Letra")
+elif character.isnumeric():
+    print("El carácter", character, "es un Dígito")
+elif character.isascii():
+    print("El carácter", character, "es Otro Carácter")
+else:
+    print("El carácter introducido NO es un carácter")
