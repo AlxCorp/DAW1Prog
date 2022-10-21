@@ -12,17 +12,20 @@ print("-------------------------------------------")
 
 # Preguntamos los números
 character = input("Ingrese un carácter para determinar el tipo del mismo: ")
+if len(hola) > 1:
+    print("Debes ingresar UN solo carácter")
+    quit()
 
 characterASCI = ord(character)
 
 match characterASCI:
-    case 44 | 46 | 58 | 59:
+    case 33 | 34 | 40 | 41 | 44 | 45 | 46 | 58 | 59 | 63 | 91 | 93 | 168 | 173:  # (!/"/(/)/,/-/./:/?/;/[/]/¿/¡)
         print("El carácter", character, "es un signo de Puntuación")
         quit()
 
 if character.isalpha():
     print("El carácter", character, "es una Letra")
-elif character.isnumeric():
+elif character.isdigit():
     print("El carácter", character, "es un Dígito")
 elif character.isascii():
     print("El carácter", character, "es Otro Carácter")
