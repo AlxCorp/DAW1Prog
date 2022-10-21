@@ -4,8 +4,8 @@
 
 # Encabezado del ejercicio
 print("")
-print("Este programa determina el tipo de triángulo")
-print("--------------------------------------------")
+print("Este programa determina si un año es bisiesto o no")
+print("--------------------------------------------------")
 
 # Preguntamos las variables
 year = int(input("Ingrese el año: "))

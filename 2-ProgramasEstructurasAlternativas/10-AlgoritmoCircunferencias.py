@@ -18,9 +18,22 @@ y2 = float(input("Ingrese el punto central y2: "))
 r1 = float(input("Ingrese el radio r1: "))
 r2 = float(input("Ingrese el radio r2: "))
 
-DISTANCIAX = abs(x1 - x2)
-DISTANCIAY = abs(y1 - y2)
+# Operaciones Recurrentes
+distanciaX = x2 - x1
+distanciaY = y2 - y1
+DISTANCIA = pow((distanciaX ** 2) + (distanciaY ** 2), 1 / 2)   # raíz2((x2-x1)e2+(y2,y1)e2)
+sumaRadios = r1 + r2
+difRadios = r1 - r2
 
-if DISTANCIAX != 0 or DISTANCIAY != 0 and
-
-# https://www.edu.xunta.gal/espazoAbalar/sites/espazoAbalar/files/datos/1445431865/contido/ud6/23_posiciones_relativas_entre_dos_circunferencias.html#:~:text=La%20posici%C3%B3n%20relativa%20de%20dos,la%20suma%20de%20sus%20radios.
+if DISTANCIA > sumaRadios:
+    print("Estas son Circunferencias Exteriores")
+elif DISTANCIA == sumaRadios:
+    print("Estas son Circunferencias Tangentes Exteriores")
+elif sumaRadios > DISTANCIA > difRadios:
+    print("Estas son Circunferencias Secantes")
+elif DISTANCIA == abs(difRadios):
+    print("Estas son Circunferencias Tangentes Interiores")
+elif DISTANCIA < difRadios:
+    print("Estas son Circunferencias Interiores")
+else:
+    print("Estas son Circunferencias Interiores Concéntricas")
