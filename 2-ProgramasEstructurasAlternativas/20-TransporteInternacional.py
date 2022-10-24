@@ -1,13 +1,13 @@
-# Indicar cuantos días tiene el mes introducido.
+# Indicar cuantos abonará el cliente por envíos a diferentes lugares y con diferentes pesos.
 # Author: Alejandro Priego Izquierdo
 # Date: 23/10/2022
 
 # Encabezado del ejercicio
 print("")
-print("Este programa indica los días correspondientes al número de mes introducido")
-print("---------------------------------------------------------------------------")
+print("Este programa indica el importe del envío")
+print("-----------------------------------------")
 
-print("las ubicaciones geográficas son las siñguientes:")
+print("las ubicaciones geográficas son las siguientes:")
 print("1. América del Norte")
 print("2. América Central")
 print("3. América del Sur")
