@@ -15,23 +15,24 @@ dayTime = input("Indica si la llamada se ha efectuado en turno de mañana (M) o 
 weeksDays = "LMXJVSD"
 brutePrice = None
 total = None
-tax = None
+TAX = None
 
 COST5 = 100
 COST5_3 = 80
 COST5_3_2 = 70
 COST10 = 50
 
+# Comprobar día para aplicar "impuesto"
 if day in weeksDays:
     match day:
         case "D":
-            tax = 3
+            TAX = 3
         case other:
             match dayTime:
                 case "M":
-                    tax = 15
+                    TAX = 15
                 case "T":
-                    tax = 10
+                    TAX = 10
 else:
     print("Por favor, ingresa un valor válido")
     quit()
@@ -48,7 +49,7 @@ else:
     print("Por favor, ingresa un valor válido")
     quit()
 
-price = brutePrice * (tax/100)
+price = brutePrice * (TAX / 100)
 
 print("El importe total de la llamada será de", price, "Euros para un total de", callTime, "Minutos, realizada el",
       day, "en horario de", dayTime)
