@@ -37,7 +37,7 @@ while True:
 
         print(f"{horas:02d}:{minutos:02d}:{segundos:02d}", end="", flush=True)
         sleep(1)
-        print(8 * "\b", end="")
+#        print(8 * "\b", end="")
 
         if is_pressed("q"):
             status = "Q"
