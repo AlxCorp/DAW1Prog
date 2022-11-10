@@ -9,7 +9,8 @@ print("Este programa indica si la cadena es un palíndromo")
 print("--------------------------------------------------")
 
 # Preguntamos las variables
-string = input("Ingrese la cadena: ")
+string = input("Ingrese la cadena: ").lower().replace(" ", "")
+string = string.replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
 reversedString = ""
 
 for i in string[::-1]:
