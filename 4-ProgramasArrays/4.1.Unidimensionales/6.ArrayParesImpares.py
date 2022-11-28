@@ -1,4 +1,4 @@
-# cribe un programa que genere 20 números enteros aleatorios entre 0 y 100 y que los almacene en un array. El
+# Escribe un programa que genere 20 números enteros aleatorios entre 0 y 100 y que los almacene en un array. El
 # programa debe ser capaz de pasar todos los números pares a las primeras posiciones del array (del 0 en adelante) y
 # todos los números impares a las celdas restantes. Utiliza arrays auxiliares si es necesario.
 # Author: Alejandro Priego Izquierdo
@@ -16,6 +16,7 @@ nums_impar = []
 for i in range(20):
     nums.append(rng.randrange(0, 100))
 
+# Comprobar si es par o impar
 for i in nums:
     if i % 2 == 0:
         nums_par.append(i)

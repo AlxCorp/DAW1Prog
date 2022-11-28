@@ -15,7 +15,7 @@ numbers = [[0] * 5 for _ in range(4)]
 
 for fila in range(4):
     for columna in range(5):
-        numbers[fila][columna] = rng.randrange(1, 100)
+        numbers[fila][columna] = rng.randrange(100, 999)
 
 for fila in range(4):
     print(f"{numbers[fila][0]:^8}{numbers[fila][1]:^8}{numbers[fila][2]:^8}{numbers[fila][3]:^8}{numbers[fila][4]:^8}"
