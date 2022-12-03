@@ -14,11 +14,13 @@ print("-------------------------------------------------")
 numbers = [[0] * 10 for _ in range(6)]
 for fila in range(6):
     for columna in range(10):
-        temp = rng.randrange(0, 1001)
-        if temp in numbers:
-            pass
-        else:
-            numbers[fila][columna] = temp
+        while True:
+            temp = rng.randrange(0, 1001)
+            if temp in numbers[fila]:
+                pass
+            else:
+                numbers[fila][columna] = temp
+                break
 
 # numbers_ordered = numbers.copy()
 numbers_ordered = deepcopy(numbers)
