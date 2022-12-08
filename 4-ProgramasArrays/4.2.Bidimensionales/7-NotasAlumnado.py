@@ -47,6 +47,8 @@ while True:
     nuevo_alumno(nombre_temporal, apellidos_temporal, notas_temporal[0], notas_temporal[1], notas_temporal[2],
                  notas_temporal[3])
 
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
 
 # Función para imprimir calificaciones totales de todos los estudiantes
 def imprimir_calificaciones():
@@ -72,14 +74,14 @@ def imprimir_calificaciones_alumno():
     def buscar_alumno(nombre, apellido):
         for alumno in alumnos_nombre:
             if nombre in alumno:
-                return alumno.index(nombre)
+                return int(alumno[0])
             elif apellido in alumno:
-                return alumno.index(apellido)
+                return int(alumno[0])
         print("Alumno no encontrado!")
 
     numero_alumno = buscar_alumno(nombre, apellido)
 
-    print(f"{nombre:^10}  {apellido:^25}  "
+    print(f"{alumnos_nombre[numero_alumno - 1][1]:^10}  {alumnos_nombre[numero_alumno - 1][2]:^25}  "
           f"|  {alumnos_notas[numero_alumno - 1][0]:^21}  {alumnos_notas[numero_alumno - 1][1]:^21}  "
           f"{alumnos_notas[numero_alumno - 1][2]:^21}  {alumnos_notas[numero_alumno - 1][3]:^21}")
 
@@ -88,6 +90,7 @@ def nota_media_modulo():
     print("Los módulos son: PROGRAMACIÓN, LENGUAJE DE MARCAS, BASE DE DATOS, SISTEMAS INFORMÁTICOS")
     modulo = input("Ingrese el nombre del módulo: ").upper()
     modulo_index = modulos.index(modulo)
+    print()
 
     media = 0
     for nota in range(contador_alumno - 1):
@@ -99,7 +102,7 @@ def nota_media_modulo():
             media += alumnos_notas[nota][2]
         elif modulo_index == 3:
             media += alumnos_notas[nota][3]
-    media /= contador_alumno
+    media /= contador_alumno-1
 
     print("La media del módulo", modulo, "es de", media)
 
@@ -108,6 +111,7 @@ def nota_maxima_modulo():
     print("Los módulos son: PROGRAMACIÓN, LENGUAJE DE MARCAS, BASE DE DATOS, SISTEMAS INFORMÁTICOS")
     modulo = input("Ingrese el nombre del módulo: ").upper()
     modulo_index = modulos.index(modulo)
+    print()
 
     notas = []
     for nota in range(contador_alumno - 1):
@@ -133,6 +137,7 @@ def nota_minima_modulo():
     print("Los módulos son: PROGRAMACIÓN, LENGUAJE DE MARCAS, BASE DE DATOS, SISTEMAS INFORMÁTICOS")
     modulo = input("Ingrese el nombre del módulo: ").upper()
     modulo_index = modulos.index(modulo)
+    print()
 
     notas = []
     for nota in range(contador_alumno - 1):
@@ -154,6 +159,41 @@ def nota_minima_modulo():
           alumnos_nombre[alumno_id][1], alumnos_nombre[alumno_id][2])
 
 
+def ordenar_nota_modulo():
+    print("Los módulos son: PROGRAMACIÓN, LENGUAJE DE MARCAS, BASE DE DATOS, SISTEMAS INFORMÁTICOS")
+    modulo = input("Ingrese el nombre del módulo: ").upper()
+    modulo_index = modulos.index(modulo)
+    print()
+
+    notas = []
+    for nota in range(contador_alumno - 1):
+        if modulo_index == 0:
+            notas.append(alumnos_notas[nota][0])
+        elif modulo_index == 1:
+            notas.append(alumnos_notas[nota][1])
+        elif modulo_index == 2:
+            notas.append(alumnos_notas[nota][2])
+        elif modulo_index == 3:
+            notas.append(alumnos_notas[nota][3])
+
+    notas_ordered = notas.copy()
+    notas_ordered.sort()
+
+    alumnos = []
+    for a in range(len(alumnos_nombre)):
+        alumno_temp = a
+        nota_temp = notas[a]
+
+        alumnos.append((alumno_temp, nota_temp))
+
+    alumnos.sort(key=lambda x: x[1])
+
+    print(f'{"Nombre":^10}  {"Apellidos":^25}  |  {modulos[0]:^21}')
+    for alumno in alumnos:
+        print(f"{alumnos_nombre[alumno[0]][1]:^10}  {alumnos_nombre[alumno[0]][2]:^25}  "
+              f"|  {alumno[1]}")
+
+
 while True:
     print()
     print("1. Imprimir Calificaciones Completas")
@@ -165,6 +205,8 @@ while True:
     print("0. Salir del Programa")
     print("------------------------------------------------")
     menu = int(input("Por favor, escoja la opción que desee realizar: "))
+    print()
+    print()
 
     match menu:
         case 1:
@@ -178,6 +220,6 @@ while True:
         case 5:
             nota_minima_modulo()
         case 6:
-            pass
+            ordenar_nota_modulo()
         case 0:
             quit()
