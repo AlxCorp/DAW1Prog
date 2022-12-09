@@ -25,6 +25,26 @@ def nuevo_alumno(nombre, apellidos, *notas):
     alumnos_notas.append(notas)
 
 
+def preguntar_modulo_index_modulo():
+    print("Los módulos son: PROGRAMACIÓN, LENGUAJE DE MARCAS, BASE DE DATOS, SISTEMAS INFORMÁTICOS")
+    modulo = input("Ingrese el nombre del módulo: ").upper()
+    modulo_index = modulos.index(modulo)
+    print()
+
+    notas = []
+    for nota in range(contador_alumno - 1):
+        if modulo_index == 0:
+            notas.append(alumnos_notas[nota][0])
+        elif modulo_index == 1:
+            notas.append(alumnos_notas[nota][1])
+        elif modulo_index == 2:
+            notas.append(alumnos_notas[nota][2])
+        elif modulo_index == 3:
+            notas.append(alumnos_notas[nota][3])
+            
+    return notas, modulo
+
+
 while True:
     nombre_temporal = input("Introduce el nombre del alumno: ").title()  # Title capitaliza todas las palabras
     if nombre_temporal == "":
@@ -33,14 +53,14 @@ while True:
 
     apellidos_temporal = input("Introduce los apellidos del alumno: ").title()
     while len(apellidos_temporal) == 0:
-        print("Debe introducir al menos un apellido!", sys.stderr)
+        print("Debe introducir al menos un apellido!", file=sys.stderr)
         apellidos_temporal = input("Introduce los apellidos del alumno: ").title()
 
     notas_temporal = []
     for i in range(4):
         x = float(input(f"Introduce la nota del alumno en {modulos[i]}: "))
         while x < 0 or x > 10:
-            print("Debe introducir una nota entre 0 y 10!", sys.stderr)
+            print("Debe introducir una nota entre 0 y 10!", file=sys.stderr)
             x = float(input(f"Introduce la nota del alumno en {modulos[i]}: "))
         notas_temporal.append(x)
 
@@ -62,7 +82,17 @@ def imprimir_calificaciones():
               f"{alumnos_notas[numero_alumno][2]:^21}  {alumnos_notas[numero_alumno][3]:^21}")
 
 
+# Función para imprimir calificaciones específicas de cada alumno
 def imprimir_calificaciones_alumno():
+    # Sub-función para buscar un alumno por nombre o apellido, devuelve su índice + 1
+    def buscar_alumno():
+        for alumno in alumnos_nombre:
+            if nombre in alumno:
+                return int(alumno[0])
+            elif apellido in alumno:
+                return int(alumno[0])
+        print("Alumno no encontrado!")
+
     nombre = input("Ingrese el nombre del alumno: ").title()
     apellido = input("Ingrese los apellidos del alumno: ").title()
     print()
@@ -71,15 +101,7 @@ def imprimir_calificaciones_alumno():
     print(f'{"Nombre":^10}  {"Apellidos":^25}  |  {modulos[0]:^21}  {modulos[1]:^21}  {modulos[2]:^21}  '
           f'{modulos[3]:^21}')
 
-    def buscar_alumno(nombre, apellido):
-        for alumno in alumnos_nombre:
-            if nombre in alumno:
-                return int(alumno[0])
-            elif apellido in alumno:
-                return int(alumno[0])
-        print("Alumno no encontrado!")
-
-    numero_alumno = buscar_alumno(nombre, apellido)
+    numero_alumno = buscar_alumno()
 
     print(f"{alumnos_nombre[numero_alumno - 1][1]:^10}  {alumnos_nombre[numero_alumno - 1][2]:^25}  "
           f"|  {alumnos_notas[numero_alumno - 1][0]:^21}  {alumnos_notas[numero_alumno - 1][1]:^21}  "
@@ -108,21 +130,7 @@ def nota_media_modulo():
 
 
 def nota_maxima_modulo():
-    print("Los módulos son: PROGRAMACIÓN, LENGUAJE DE MARCAS, BASE DE DATOS, SISTEMAS INFORMÁTICOS")
-    modulo = input("Ingrese el nombre del módulo: ").upper()
-    modulo_index = modulos.index(modulo)
-    print()
-
-    notas = []
-    for nota in range(contador_alumno - 1):
-        if modulo_index == 0:
-            notas.append(alumnos_notas[nota][0])
-        elif modulo_index == 1:
-            notas.append(alumnos_notas[nota][1])
-        elif modulo_index == 2:
-            notas.append(alumnos_notas[nota][2])
-        elif modulo_index == 3:
-            notas.append(alumnos_notas[nota][3])
+    notas, modulo = preguntar_modulo_index_modulo()
 
     notas_ordered = notas.copy()
     notas_ordered.sort()
@@ -134,21 +142,7 @@ def nota_maxima_modulo():
 
 
 def nota_minima_modulo():
-    print("Los módulos son: PROGRAMACIÓN, LENGUAJE DE MARCAS, BASE DE DATOS, SISTEMAS INFORMÁTICOS")
-    modulo = input("Ingrese el nombre del módulo: ").upper()
-    modulo_index = modulos.index(modulo)
-    print()
-
-    notas = []
-    for nota in range(contador_alumno - 1):
-        if modulo_index == 0:
-            notas.append(alumnos_notas[nota][0])
-        elif modulo_index == 1:
-            notas.append(alumnos_notas[nota][1])
-        elif modulo_index == 2:
-            notas.append(alumnos_notas[nota][2])
-        elif modulo_index == 3:
-            notas.append(alumnos_notas[nota][3])
+    notas, modulo = preguntar_modulo_index_modulo()
 
     notas_ordered = notas.copy()
     notas_ordered.sort()
@@ -160,21 +154,7 @@ def nota_minima_modulo():
 
 
 def ordenar_nota_modulo():
-    print("Los módulos son: PROGRAMACIÓN, LENGUAJE DE MARCAS, BASE DE DATOS, SISTEMAS INFORMÁTICOS")
-    modulo = input("Ingrese el nombre del módulo: ").upper()
-    modulo_index = modulos.index(modulo)
-    print()
-
-    notas = []
-    for nota in range(contador_alumno - 1):
-        if modulo_index == 0:
-            notas.append(alumnos_notas[nota][0])
-        elif modulo_index == 1:
-            notas.append(alumnos_notas[nota][1])
-        elif modulo_index == 2:
-            notas.append(alumnos_notas[nota][2])
-        elif modulo_index == 3:
-            notas.append(alumnos_notas[nota][3])
+    notas, modulo = preguntar_modulo_index_modulo()
 
     notas_ordered = notas.copy()
     notas_ordered.sort()
