@@ -2,3 +2,4 @@ venv/
 .idea/
 *.zip
 test.py
+Proyectos/OpenCV/
