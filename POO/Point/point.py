@@ -1,6 +1,16 @@
+"""Implementa una clase Point con sus atributos x e y. La clase debe contener: su constructor, los getters y setters
+(propiedades), un invert_coordinates() que invierta las coordenadas x e y del punto. Además, la clase debe tener un
+__str__() para poder imprimir los puntos en formato “(x,y)”. Implementa un test donde crees un punto, lo imprimas
+utilizando de manera implícita el método __str__(), imprimas su coordenada x, asignes 0 a su coordenada x,
+y vuelvas a imprimir el punto.
+
+Author: Alejandro Priego
+Date: 24/01/2023
+"""
+
+
 class Point:
     def __init__(self, x: float, y: float):
-        self.__z = None
         self.__x: float = x
         self.__y: float = y
 
@@ -21,9 +31,7 @@ class Point:
         self.__y = value
 
     def __str__(self):
-        print(f'({self.__x},{self.__y})')
+        return f'({self.__x},{self.__y})'
 
     def invert_coordinates(self):
-        self.__z = self.__x
-        self.__x = self.__y
-        self.__y = self.__z
+        self.__x, self.__y = self.__y, self.__x
