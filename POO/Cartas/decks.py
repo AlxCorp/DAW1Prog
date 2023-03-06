@@ -4,15 +4,12 @@ from deck import Deck, Card
 
 @typechecked
 class SpanishDeck(Deck):
-    cards = (
-        ("Bastos", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-        ("Espadas", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-        ("Oros", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
-        ("Copas", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
-    )
+    cards_suits = ("Bastos", "Espadas", "Oros", "Copas")
+    cards_numbers = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)
 
-    def __init__(self, *cards: 'Card'):
-        super().__init__(*cards)
+    def __init__(self):
+        cards = [Card(n, s) for n in SpanishDeck.cards_suits for s in str(SpanishDeck.cards_numbers)]
+        super().__init__(cards)
 
 
 @typechecked

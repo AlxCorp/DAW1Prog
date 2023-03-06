@@ -1,12 +1,14 @@
+
 from typeguard import typechecked
 from random import randrange as rng
 from random import shuffle
+from typing import List
 from card import Card
 
 
 @typechecked
 class Deck:
-    def __init__(self, *cards: 'Card'):
+    def __init__(self, cards: List['Card']):
         self.__cards = []
         for i in cards:
             self.__cards.append(i)

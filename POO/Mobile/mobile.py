@@ -35,10 +35,7 @@ class Mobile(Terminal):
         return round(self.__total_billed, 2)
 
     def call(self, other: 'Terminal', time: int):
-        if self != other and self.__check_time(time):
-            self.__talk_time += time
-            other.__talk_time += time
-
+        super().call(other, time)
         self.__bill(time)
 
     def __bill(self, time: int):
