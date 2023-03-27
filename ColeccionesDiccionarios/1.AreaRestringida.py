@@ -8,12 +8,10 @@ Author: Alejandro Priego Izquierdo
 Date: 12-03-2023
 """
 
+USERS = {"Hola": "AdIoS", "Que": "tal", "Estas": "tU"}
+
 
 def main():
-    input_data()
-
-
-def input_data():
     hints = 0
     while hints < 3:
         user = input_user()
@@ -30,7 +28,6 @@ def input_data():
 
         else:
             access_granted()
-
     access_denied()
 
 
@@ -61,14 +58,14 @@ def input_password(user):
 
 
 def check_user(user):
-    if user in users.keys():
+    if user in USERS.keys():
         return True
     else:
         raise ValueError("Usuario no encontrado!")
 
 
 def check_password(password):
-    if password in users.values():
+    if password in USERS.values():
         return True
     else:
         raise ValueError("Contraseña no válida!")
@@ -95,6 +92,5 @@ def access_denied():
 
 
 if __name__ == '__main__':
-    users = {"Hola": "AdIoS", "Que": "tal", "Estas": "tU"}
 
     main()
