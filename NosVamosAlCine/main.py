@@ -14,7 +14,7 @@ Date: 19/04/23
 """
 import os
 import sys
-import webbrowser
+# import webbrowser
 from PIL import Image
 from requests import request, get
 from menu import Menu
@@ -51,6 +51,11 @@ def main():
 
 
 def search_code_with_name(internal=False):
+    """
+    Esta función nos permite buscar el código e información básica de una película en base al nombre.
+    :param internal: Este parámetro sirve para que devuelva el código de la primera película encontrada, pero no lo imprima
+    :return: Devuelve el código de la primera línea encontrada.
+    """
     # https://developers.themoviedb.org/3/search/search-companies
     question = "Introduce el título de la película: "
     endpoint = f"{API}search/movie?api_key={MOVIEAPITOKEN}&language=es-ES&" \
@@ -59,13 +64,13 @@ def search_code_with_name(internal=False):
     r = request("GET", endpoint)
     r_json = r.json()
 
+    if r.status_code == 404:
+        print(f"ERROR: Película no encontrada, código de error {r.status_code}", file=sys.stderr)
+        return "not_found"
+
     if r.status_code != 200:
         print(f"ERROR: El servidor no responde, código de error {r.status_code}", file=sys.stderr)
         return "server_error"
-
-    if r.status_code != 404:
-        print(f"ERROR: Película no encontrada, código de error {r.status_code}", file=sys.stderr)
-        return "not_found"
 
     if not internal:
         for n in range(len(r_json["results"])):
@@ -75,6 +80,10 @@ def search_code_with_name(internal=False):
 
 
 def search_info_url_with_code():
+    """
+    Esta función nos permite buscar información detallada de una película y su url de IMDB en base al código.
+    :return: Esta función no devuelve nada.
+    """
     # https://developers.themoviedb.org/3/movies/get-movie-details
     question = "Introduce el código de la película: "
     endpoint = f"{API}movie/{input(question)}?api_key={MOVIEAPITOKEN}&language=es-ES"
@@ -82,13 +91,13 @@ def search_info_url_with_code():
     r = request("GET", endpoint)
     r_json = r.json()
 
+    if r.status_code == 404:
+        print(f"ERROR: Película no encontrada, código de error {r.status_code}", file=sys.stderr)
+        return "not_found"
+
     if r.status_code != 200:
         print(f"ERROR: El servidor no responde, código de error {r.status_code}", file=sys.stderr)
         return "server_error"
-
-    if r.status_code != 404:
-        print(f"ERROR: Película no encontrada, código de error {r.status_code}", file=sys.stderr)
-        return "not_found"
 
     print(f'Título: {r_json["title"]} \n '
           f'Géneros: {[n["name"] for n in r_json["genres"]]} \n '
@@ -108,39 +117,57 @@ def search_info_url_with_code():
         img.show()
         print("\n")
         # webbrowser.open(f'https://image.tmdb.org/t/p/w500{r_json["poster_path"]}') Podríamos abrir imagen en navegador
+    print()
 
 
-def recommendation_from_another_movie():
+def recommendation_from_another_movie(page: int = 1, code: int = 0):
+    """
+    Esta función nos recomienda películas en base a otra.
+    :return: Esta función no devuelve nada.
+    """
     # https://developers.themoviedb.org/3/movies/get-similar-movies
-    question = input("¿Quieres buscar por nombre(N) o por código(C)?: ").upper()
-    if question == "N":
-        question = search_code_with_name(internal=True)
-    elif question == "C":
-        question = input("Introduce el código de la película: ")
-    else:
-        print("\n\nERROR: Debes introducir una de las opciones válidas.\n\n", file=sys.stderr)
-        return
+    if page == 1:
+        question = input("¿Quieres buscar por nombre(N) o por código(C)?: ").upper()
+        if question == "N":
+            question = search_code_with_name(internal=True)
+        elif question == "C":
+            question = input("Introduce el código de la película: ")
+        else:
+            print("\n\nERROR: Debes introducir una de las opciones válidas.\n\n", file=sys.stderr)
+            return
 
-    endpoint = f"{API}movie/{question}/similar?api_key={MOVIEAPITOKEN}&language=es-ES"
+        endpoint = f"{API}movie/{question}/similar?api_key={MOVIEAPITOKEN}&language=es-ES"
+        movie_code = question
+    else:
+        endpoint = f"{API}movie/{code}/similar?api_key={MOVIEAPITOKEN}&language=es-ES&page={page}"
+        movie_code = code
 
     r = request("GET", endpoint)
     r_json = r.json()
+
+    if r.status_code == 404:
+        print(f"ERROR: Película no encontrada, código de error {r.status_code}", file=sys.stderr)
+        return "not_found"
 
     if r.status_code != 200:
         print(f"ERROR: El servidor no responde, código de error {r.status_code}", file=sys.stderr)
         return "server_error"
 
-    if r.status_code != 404:
-        print(f"ERROR: Película no encontrada, código de error {r.status_code}", file=sys.stderr)
-        return "not_found"
-
     for n in r_json["results"]:
         print("\n", n["title"], "\n", n["id"])
+
+    more_pages = input("¿Deseas mostrar más recomendaciones? (S/N): ").upper()
+    if more_pages == "S":
+        recommendation_from_another_movie(page=page+1, code=movie_code)
 
     print("\n")
 
 
 def ranking_5_movies():
+    """
+    Muestra el ranking diario o semanal de 5 películas. Podemos indicar categoría específica.
+    :return:
+    """
     # https://developers.themoviedb.org/3/trending/get-trending
     question = input('¿Deseas el "trending topic" Diario(D) o Semanal(S)?: ').upper()
     if question == "D":
@@ -156,13 +183,13 @@ def ranking_5_movies():
     r = request("GET", endpoint)
     r_json = r.json()
 
+    if r.status_code == 404:
+        print(f"ERROR: Película no encontrada, código de error {r.status_code}", file=sys.stderr)
+        return "not_found"
+
     if r.status_code != 200:
         print(f"ERROR: El servidor no responde, código de error {r.status_code}", file=sys.stderr)
         return "server_error"
-
-    if r.status_code != 404:
-        print(f"ERROR: Película no encontrada, código de error {r.status_code}", file=sys.stderr)
-        return "not_found"
 
     ask_genre_search = input('¿Deseas buscar películas de algún género en concreto? (S/N): ').upper()
     if ask_genre_search == "S":
@@ -203,6 +230,11 @@ def ranking_5_movies():
 
 
 def show_all_genders(first=False):
+    """
+    Esta función consulta y muestra todos los géneros posibles.
+    :param first: Nos permite ejecutarlo al comenzar el programa para poder tener el listado y usarlo en otras funciones
+    :return: Esta función no devuelve nada.
+    """
     # https://developers.themoviedb.org/3/genres/get-movie-list
     global genres
     if first:
@@ -211,22 +243,21 @@ def show_all_genders(first=False):
         r = request("GET", endpoint)
         r_json = r.json()
 
+        if r.status_code == 404:
+            print(f"ERROR: Película no encontrada, código de error {r.status_code}", file=sys.stderr)
+            return "not_found"
+
         if r.status_code != 200:
             print(f"ERROR: El servidor no responde, código de error {r.status_code}", file=sys.stderr)
             return "server_error"
 
-        if r.status_code != 404:
-            print(f"ERROR: Película no encontrada, código de error {r.status_code}", file=sys.stderr)
-            return "not_found"
-
-        genres = r_json()["genres"]
+        genres = r_json["genres"]
     #        r_json = r.json()["genres"]
     #        genres = [n["name"] for n in r_json]
     else:
         #        print(genres, "\n\n")
         print("Lista de Géneros Disponibles")
         print("----------------------------")
-        print(genres)
         for n in genres:
             print(f'\t - {n["name"]}')
         print("\n")
