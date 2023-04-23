@@ -22,9 +22,9 @@ def make_test():
         tmp_answer = []
         for n in range(4):
             tmp_answer_text = input(f"Ingrese el texto para la respuesta número {n + 1}: ")
-            tmp_answer_calification = float(
+            tmp_answer_qualification = float(
                 input(f"Ingrese el porcentaje (entre '-1' y '+1') para la respuesta número {n + 1}: "))
-            tmp_answer.append((tmp_answer_text, tmp_answer_calification))
+            tmp_answer.append((tmp_answer_text, tmp_answer_qualification))
 
         questions.append(Question(tmp_name, tmp_statement, tmp_answer))
 
@@ -37,7 +37,7 @@ def do_test():
         for f in range(len(questions[q].answers)):
             print(f"{f + 1}. {questions[q].answers[f][0]}")
         input_value = int(input("Indique la opción correcta (Pulse Intro para dejarla en blanco): "))
-        if 0 < input_value > len(questions[q].answers):
+        if 0 < input_value and input_value > len(questions[q].answers):
             nota += questions[input_value].answers[1] * questions[input_value].score
         nota_maxima += questions[input_value].score
     print(f"Puntuación obtenida: {(nota * 10) / nota_maxima} puntos.")
