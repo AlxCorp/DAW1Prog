@@ -232,13 +232,14 @@ def ranking_5_movies():
         while limiter < 5:
             movie_printer()
             page += 1
+            endpoint = f"{API}trending/movie/{question}?api_key={MOVIEAPITOKEN}&page={page}"
             r = request("GET", endpoint)
             r_json = r.json()
 
     else:
         limiter = 0
         for n in r_json["results"]:
-            print("\n", n["title"], "\n", n["id"])
+            print("\n", n["title"], "\n", n["overview"], "\n", n["release_date"], "\n", n["id"])
             limiter += 1
             if limiter > 4:
                 break
