@@ -25,6 +25,8 @@ genres = []
 
 
 def main():
+    check_connection()
+
     args = ("Buscar código de película por nombre",
             "Buscar información de película por código TMDB y enlace a web imdb",
             "Recomendaciones en base a otra película",
@@ -48,6 +50,19 @@ def main():
                 ranking_5_movies()
             case 5:
                 show_all_genders()
+
+
+def check_connection():
+    try:
+        r = request("GET", "https://www.cuatro.com/cuarto-milenio/")
+    except ConnectionError:
+        print("ERROR: No tienes conexión a internet, revisa tu conexión y ejecuta el programa de nuevo",
+              file=sys.stderr)
+        exit(1)
+    except:
+        print("ERROR: Ha ocurrido un problema, revisa tu conexión y ejecuta el programa de nuevo",
+              file=sys.stderr)
+        exit(1)
 
 
 def search_code_with_name(internal=False):
@@ -74,7 +89,8 @@ def search_code_with_name(internal=False):
 
     if not internal:
         for n in range(len(r_json["results"])):
-            print("\n", r_json["results"][n]["title"], "\n", r_json["results"][n]["id"], "\n")
+            print("\n", r_json["results"][n]["title"], "\n",  r_json["results"][n]["overview"],
+                  "\n", r_json["results"][n]["release_date"], "\n", r_json["results"][n]["id"], "\n")
     elif internal:
         return r_json["results"][0]["id"]
 
@@ -154,7 +170,7 @@ def recommendation_from_another_movie(page: int = 1, code: int = 0):
         return "server_error"
 
     for n in r_json["results"]:
-        print("\n", n["title"], "\n", n["id"])
+        print("\n", n["title"], "\n", n["overview"], "\n", n["release_date"], "\n", n["id"], "\n")
 
     more_pages = input("¿Deseas mostrar más recomendaciones? (S/N): ").upper()
     if more_pages == "S":

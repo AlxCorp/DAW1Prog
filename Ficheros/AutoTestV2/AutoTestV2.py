@@ -62,7 +62,7 @@ def save_test():
     for n in questions:
         raw_questions.append({"name": n.name, "statement": n.statement, "options": n.answers, "points": n.score})
     with open(f_name, "wt", encoding="UTF-8") as f:
-        f.write(json.dumps(raw_questions, indent=3))
+        f.write(json.dumps(raw_questions, indent=3, ensure_ascii=True))
     print("\n")
 
 
