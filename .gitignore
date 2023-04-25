@@ -5,3 +5,5 @@ test.py
 Proyectos/OpenCV/
 /NosVamosAlCine/bin/*
 /NosVamosAlCine/lib/python3.11/*
+*.docx
+*/pyvenv.cfg
