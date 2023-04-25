@@ -27,6 +27,8 @@ genres = []
 def main():
     check_connection()
 
+    show_all_genders(first=True)
+
     args = ("Buscar código de película por nombre",
             "Buscar información de película por código TMDB y enlace a web imdb",
             "Recomendaciones en base a otra película",
@@ -281,5 +283,4 @@ def show_all_genders(first=False):
 
 
 if __name__ == '__main__':
-    show_all_genders(first=True)
     main()
