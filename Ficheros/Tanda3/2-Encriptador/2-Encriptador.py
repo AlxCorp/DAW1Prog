@@ -30,8 +30,8 @@ if len(argv) == 2:
     else:
         quit(0)
 
-if len(argv) < 2 or len(argv) > 3:
-    print("ERROR: Debes ingresar DOS argumentos", file=stderr)
+if len(argv) < 2 or len(argv) > 4:
+    print("ERROR: Debes ingresar TRES argumentos", file=stderr)
     quit(1)
 
 try:
@@ -47,22 +47,37 @@ if not one_file:
         print("ERROR: No puede abrirse el fichero", file=stderr)
         quit(2)
 
+"""
+lower_letters = [65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90]
+upper_letters = [97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117,
+                 118, 119, 120, 121, 122]
+"""
 
-def cifrado_cesar(message, desplazamiento=rng(1, 26)):
+
+def cifrado_cesar(message, key):
     result = ""
     for letter in message:
         if letter.isalpha():
-            position = ord(letter) - ord('a')
-            new_position = (position + desplazamiento) % 26
-            new_letter = chr(new_position + ord('a'))
-            result += new_letter
+            if letter.isupper():
+                for n in range(key):
+                    if 96 < ord(letter) < 122:
+                        new_letter = ord(letter) + 1
+                    else:
+                        new_letter = 97
+            else:
+                for n in range(key):
+                    if 64 < ord(letter) < 90:
+                        new_letter = ord(letter) + 1
+                    else:
+                        new_letter = 65
+            result += chr(new_letter)
         else:
             result += letter
 
     return result
 
 
-f2.write(cifrado_cesar(f1.read()))
+f2.write(cifrado_cesar(f1.read(), int(argv[3])))
 
 f1.close()
 f2.close()
