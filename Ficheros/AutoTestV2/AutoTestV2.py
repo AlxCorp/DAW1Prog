@@ -33,15 +33,17 @@ def make_test():
 def do_test():
     nota = 0
     nota_maxima = 0
-    for q in range(len(questions)):
-        print(f"Pregunta {q + 1}. \n {questions[q].statement}")
-        for f in range(len(questions[q].answers)):
-            print(f"{f + 1}. {questions[q].answers[f][0]}")
+    for q in range(len(questions)-1):
+        actual = questions[q]
+        print(f"Pregunta {q + 1}. \n {actual.statement}")
+        for f in range(len(actual.answers)):
+            print(f"{f + 1}. {actual.answers[f][0]}")
         input_value = int(input("Indique la opción correcta (Pulse Intro para dejarla en blanco): "))
-        if 0 < input_value and input_value > len(questions[q].answers):
-            nota += questions[input_value].answers[1] * questions[input_value].score
-        nota_maxima += questions[input_value].score
-    print(f"Puntuación obtenida: {(nota * 10) / nota_maxima} puntos.")
+        print("\n")
+        if 0 < input_value <= len(actual.answers):
+            nota += actual.answers[input_value-1][1] * actual.score
+        nota_maxima += actual.score
+    print(f"Puntuación obtenida: {(nota * 10) / nota_maxima} puntos.\n\n")
 
 
 def load_test():
