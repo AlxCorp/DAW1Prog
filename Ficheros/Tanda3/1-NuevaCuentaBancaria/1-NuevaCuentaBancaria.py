@@ -9,7 +9,6 @@ Date: 25/04/2023
 """
 import pickle
 from typeguard import typechecked
-from random import randrange as rng
 
 
 @typechecked
