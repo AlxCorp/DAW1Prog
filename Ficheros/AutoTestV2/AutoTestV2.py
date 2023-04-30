@@ -33,7 +33,7 @@ def make_test():
 def do_test():
     nota = 0
     nota_maxima = 0
-    for q in range(len(questions)-1):
+    for q in range(len(questions)):
         actual = questions[q]
         print(f"Pregunta {q + 1}. \n {actual.statement}")
         for f in range(len(actual.answers)):

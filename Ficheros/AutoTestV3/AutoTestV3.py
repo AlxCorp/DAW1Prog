@@ -6,6 +6,7 @@ Date: 07/04/23
 """
 from POO.Menu.menu import Menu
 from question import Question
+import xml.etree.ElementTree as ET
 
 questions = []
 
@@ -50,44 +51,52 @@ def load_test():
     questions = []
 
     f_name = input("Ingrese el nombre del fichero desde el que cargar el test: ")
-    raw_questions = []
-    with open(f_name, "rt", encoding="UTF-8") as f:
-        temp = []
-        for line in f:
-            line = line.rstrip()
-            if line == "---":
-                raw_questions.append(temp)
-                temp = []
+    root = ET.parse(f_name).getroot()
+
+    for question in root:
+        temp_question = []
+        if len(question.attrib) == 1:
+            temp_question.extend(["", float(question.attrib["base_score"])])
+        elif len(question.attrib) == 2:
+            temp_question.extend([question.attrib["name"], float(question.attrib["base_score"])])
+        else:
+            raise ValueError("Documento mal formado")
+
+        for e in question:
+            if e.text == '\n            ':
+                temp_options = []
+                for i in e:
+                    temp_options.append([i.text.strip(), float(i.attrib["weight"])])
+                temp_question.append(temp_options)
             else:
-                temp.append(line)
+                temp_question.append(e.text.strip().replace("            ", ""))
 
-    for i in raw_questions:
-        p1 = i.pop(0)
-
-        p2 = []
-        while "." not in p2:
-            p2.append(i.pop(0))
-        p2 = "\n".join(p2)
-
-        p3 = []
-        tmp_list_to_tuple = []
-        for _ in range(4):
-            tmp_list_to_tuple.append(i.pop(0))
-            tmp_list_to_tuple.append(float(i.pop(0)))
-            p3.append(tuple(tmp_list_to_tuple))
-            tmp_list_to_tuple = []
-
-        questions.append(Question(p1, p2, p3))
+        questions.append(Question(temp_question[0], temp_question[2], temp_question[3], temp_question[1]))
+    print("\n")
 
 
 def save_test():
+    global questions
+    questions = []
+
     f_name = input("Ingrese el nombre del fichero donde guardar el test: ")
-    with open(f_name, "wt", encoding="UTF-8") as f:
-        for i in questions:
-            f.writelines([str(i.name), "\n", str(i.statement), "\n"])
-            for n in i.answers:
-                f.writelines([str(n[0]), "\n", str(n[1]), "\n"])
-            f.write("---\n")
+    root = ET.Element('test')
+    for n in questions:
+        e1 = ET.SubElement(root, 'question', {'name': n.name, 'base_score': n.score})
+        se1 = ET.SubElement(e1, 'statement')
+        se1.text = n.statement
+        se2 = ET.SubElement(e1, 'options')
+        sese21 = ET.SubElement(se2, 'option', {'weight': n.answers[0][1]})
+        sese21.text = n.answers[0][0]
+        sese22 = ET.SubElement(se2, 'option', {'weight': n.answers[1][1]})
+        sese22.text = n.answers[1][0]
+        sese23 = ET.SubElement(se2, 'option', {'weight': n.answers[2][1]})
+        sese23.text = n.answers[2][0]
+        sese24 = ET.SubElement(se2, 'option', {'weight': n.answers[3][1]})
+        sese24.text = n.answers[3][0]
+
+    tree = ET.ElementTree(root)
+    tree.write(f_name)
 
 
 if __name__ == "__main__":
