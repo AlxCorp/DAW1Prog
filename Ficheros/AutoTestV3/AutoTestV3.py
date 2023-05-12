@@ -95,8 +95,9 @@ def save_test():
         sese24 = ET.SubElement(se2, 'option', {'weight': n.answers[3][1]})
         sese24.text = n.answers[3][0]
 
-    tree = ET.ElementTree(root)
-    tree.write(f_name)
+    xmlstring = ET.tostring(root)
+    with open(f_name, "wb") as f:
+        f.write(xmlstring)
 
 
 if __name__ == "__main__":
