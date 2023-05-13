@@ -12,6 +12,9 @@ FEC: extrae fechas con formato dd/mm/aaaa.
 TWT: extrae usuarios de twitter: empieza por @ y puede contener letras mayusculas y minusculas, numeros, guiones y
     guiones bajos.
 El programa tiene que ser en relación a su complejidad y número de líneas lo más eficiente posible.
+
+Author: Alejandro Priego Izquierdo
+Date: 12-05-2023
 """
 from sys import argv, stderr
 import re
