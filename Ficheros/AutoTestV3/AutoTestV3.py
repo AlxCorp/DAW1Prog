@@ -7,6 +7,7 @@ Date: 07/04/23
 from POO.Menu.menu import Menu
 from question import Question
 import xml.etree.ElementTree as ET
+from xml.dom import minidom
 
 questions = []
 
@@ -77,27 +78,26 @@ def load_test():
 
 def save_test():
     global questions
-    questions = []
 
     f_name = input("Ingrese el nombre del fichero donde guardar el test: ")
-    root = ET.Element('test')
-    for n in questions:
-        e1 = ET.SubElement(root, 'question', {'name': n.name, 'base_score': n.score})
-        se1 = ET.SubElement(e1, 'statement')
-        se1.text = n.statement
-        se2 = ET.SubElement(e1, 'options')
-        sese21 = ET.SubElement(se2, 'option', {'weight': n.answers[0][1]})
-        sese21.text = n.answers[0][0]
-        sese22 = ET.SubElement(se2, 'option', {'weight': n.answers[1][1]})
-        sese22.text = n.answers[1][0]
-        sese23 = ET.SubElement(se2, 'option', {'weight': n.answers[2][1]})
-        sese23.text = n.answers[2][0]
-        sese24 = ET.SubElement(se2, 'option', {'weight': n.answers[3][1]})
-        sese24.text = n.answers[3][0]
+    with open(f_name, "wt") as f:
+        f.write('<?xml version="1.0" encoding="utf-8"?>\n<test>\n</test>')
+    tree = ET.parse(f_name)
+    root = tree.getroot()
 
-    xmlstring = ET.tostring(root)
-    with open(f_name, "wb") as f:
-        f.write(xmlstring)
+    for question in questions:
+        qst = ET.Element('question', {'name': question.name, 'base_score': str(question.score)})
+        ET.SubElement(qst, 'statement').text = question.statement
+        opts = ET.SubElement(qst, 'options')
+        for answer in question.answers:
+            ET.SubElement(opts, 'option', {'weight': str(answer[1])}).text = answer[0]
+        root.append(qst)
+
+#    tree.write(f_name, encoding='unicode', xml_declaration=True)
+    xml_minidom = minidom.parseString(ET.tostring(root))
+    xml_str = xml_minidom.toprettyxml()
+    with open(f_name, 'w', encoding="UTF-8") as archivo:
+        archivo.write(xml_str)
 
 
 if __name__ == "__main__":
