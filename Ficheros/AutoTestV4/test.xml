@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<test>
+	
+
+	<question name="awfgwag" base_score="1">
+		<statement>agw
+.</statement>
+		<options>
+			<option weight="1.0">faw</option>
+			<option weight="0.0">sgege</option>
+			<option weight="0.0">gkyj</option>
+			<option weight="0.0">gjfj</option>
+		</options>
+	</question>
+</test>
