@@ -1,23 +1,48 @@
-{
-   "name": "jkdghgr",
-   "statement": "faw\n.",
-   "options": [
-      [
-         "gse",
-         1.0
+[
+   {
+      "name": "jkdghgr",
+      "statement": "faw\n.",
+      "options": [
+         [
+            "gse",
+            1.0
+         ],
+         [
+            "sge",
+            0.0
+         ],
+         [
+            "drh",
+            0.0
+         ],
+         [
+            "seg",
+            0.0
+         ]
       ],
-      [
-         "sge",
-         0.0
+      "points": 1
+   },
+   {
+      "name": "rgdhdr",
+      "statement": "gseg\n.",
+      "options": [
+         [
+            "thhdr",
+            1.0
+         ],
+         [
+            "tjdfhdhr",
+            0.0
+         ],
+         [
+            "est",
+            0.0
+         ],
+         [
+            "drh",
+            0.0
+         ]
       ],
-      [
-         "drh",
-         0.0
-      ],
-      [
-         "seg",
-         0.0
-      ]
-   ],
-   "points": 1
-}
+      "points": 1
+   }
+]

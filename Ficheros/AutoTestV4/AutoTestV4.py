@@ -130,10 +130,26 @@ def add_question():
 
 def save_json(question):
     f_name = file
-    raw_question = {"name": question.name, "statement": question.statement,
-                    "options": question.answers, "points": question.score}
+
+    questions = []
+    raw_questions = []
+
+    with open(f_name, "rt", encoding="UTF-8") as f:
+        f_json = json.load(f)
+
+        if isinstance(f_json, dict):
+            f_json = [f_json]
+
+        for i in f_json:
+            questions.append(Question(i["name"], i["statement"], i["options"], i["points"]))
+
+    questions.append(question)
+
+    for n in questions:
+        raw_questions.append({"name": n.name, "statement": n.statement, "options": n.answers, "points": n.score})
+
     with open(f_name, "wt", encoding="UTF-8") as f:
-        f.write(json.dumps(raw_question, indent=3, ensure_ascii=True))
+        f.write(json.dumps(raw_questions, indent=3, ensure_ascii=True))
     print("\n")
 
 
