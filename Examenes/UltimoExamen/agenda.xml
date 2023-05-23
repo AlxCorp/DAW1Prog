@@ -1,0 +1,28 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<address_book>
+    <contact name="Alejandro P.">
+        <phone>612345678</phone>
+        <email>alejandro@asd.com</email>
+        <address>Calle Calle</address>
+    </contact>
+    <contact name="Pepe Ramirez">
+        <phone>698765432</phone>
+        <email>adwdaw@fawfaw.ac</email>
+        <address>Calle Córdoba</address>
+    </contact>
+    <contact name="Jaime">
+        <phone>957436587</phone>
+        <email>waffaw@fawf.com</email>
+        <address>Calle Larios</address>
+    </contact>
+    <contact name="Enrique">
+        <phone>765346587</phone>
+        <email>htffth@gmail.es</email>
+        <address>Murcia</address>
+    </contact>
+    <contact name="Rafa">
+        <phone>643153534</phone>
+        <email>hafewaw@yahoo.es</email>
+        <address>Montilla</address>
+    </contact>
+</address_book>
