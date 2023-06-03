@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<address_book>
+	
+
+	<contact name="Pepe">
+		<phone>612345678</phone>
+		<email>pepe@pepe.com</email>
+		<address>Pepecalle</address>
+	</contact>
+</address_book>
