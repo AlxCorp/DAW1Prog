@@ -3,7 +3,6 @@ Programa de TEST para la Clase AddressBook
 
 Author: Alejandro Priego Izquierdo
 Date: 22-05-2023
-TODO Controlar Excepciones
 """
 from menu import Menu
 import AddressBook
@@ -46,7 +45,14 @@ def main():
                 dbname = input("Introduzca el nombre de la Base de Datos a abrir: ")
                 dbuser = input("Introduzca el usuario de la Base de Datos a abrir: ")
                 dbpassword = input("Introduzca la contraseña del usuario de la Base de Datos: ")
-                DAO.use_database(dbname, dbuser, dbpassword)
+                try:
+                    DAO.use_database(dbname, dbuser, dbpassword)
+                except RuntimeError:
+                    print("ERROR: No se ha podido conectar con la BD.", file=stderr)
+                    continue
+                except:
+                    print("ERROR: Usuario o Contraseña incorrectos.", file=stderr)
+                    continue
                 BOOK = AddressBook.AddressBook(DAO)
                 flag = True
             case 3:
@@ -57,7 +63,12 @@ def main():
                 tmp_phone = input("Introduce el teléfono del contacto: ")
                 tmp_email = input("Introduce el email del contacto: ")
                 tmp_address = input("Introduce la dirección del contacto (opcional): ")
-                BOOK.register_contact(tmp_name, tmp_phone, tmp_email, tmp_address)
+                try:
+                    BOOK.register_contact(tmp_name, tmp_phone, tmp_email, tmp_address)
+                except IntegrityError as e:
+                    print(e)
+                    print("ERROR: Contacto duplicado o valores no válidos", file=stderr)
+                    continue
             case 4:
                 if not flag:
                     print("ERROR: Debes seleccionar antes la opción 1 o 2", file=stderr)
@@ -77,7 +88,11 @@ def main():
                     overwritten = input("¿El fichero ya existe, quieres sobreescribirlo? (S/N): ")
                     if overwritten.upper() != "S":
                         break
-                BOOK.xml_export(filename)
+                try:
+                    BOOK.xml_export(filename)
+                except FileNotFoundError:
+                    print("ERROR: Nombre de Fichero o Ruta no válida.", file=stderr)
+                    continue
             case 7:
                 if not flag:
                     print("ERROR: Debes seleccionar antes la opción 1 o 2", file=stderr)

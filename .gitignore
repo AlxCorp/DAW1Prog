@@ -7,3 +7,4 @@ Proyectos/OpenCV/
 /NosVamosAlCine/lib/python3.11/*
 *.docx
 */pyvenv.cfg
+*.env
