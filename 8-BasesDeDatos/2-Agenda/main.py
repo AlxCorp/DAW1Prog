@@ -4,11 +4,13 @@ Programa de TEST para la Clase AddressBook
 Author: Alejandro Priego Izquierdo
 Date: 22-05-2023
 """
+
 from menu import Menu
 import AddressBook
 import Sql_DAO
 from os import path
 from sys import stderr
+import mysql.connector
 
 BOOK = None
 DAO = Sql_DAO.SqlDAO()
@@ -65,7 +67,7 @@ def main():
                 tmp_address = input("Introduce la dirección del contacto (opcional): ")
                 try:
                     BOOK.register_contact(tmp_name, tmp_phone, tmp_email, tmp_address)
-                except IntegrityError as e:
+                except mysql.connector.errors.IntegrityError as e:
                     print(e)
                     print("ERROR: Contacto duplicado o valores no válidos", file=stderr)
                     continue
