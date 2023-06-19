@@ -1,4 +1,9 @@
-import sys
+"""
+Calculator designed in QTDesigner and PySide6.
+
+Date: 19-06-2023
+Author: Alejandro Priego Izquierdo
+"""
 from CalculatorGUI import *
 from functools import partial
 
@@ -63,7 +68,6 @@ class Calculadora(QMainWindow):
         self._operation = ""
         self._result = 0
         self._update_display()
-
 
 
 if __name__ == '__main__':
