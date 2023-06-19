@@ -23,7 +23,7 @@ class PyCalcWindow(QMainWindow):
 
     def _create_display(self):
         self.display = QLineEdit()
-        self.display.setFixedSize(WINDOW_SIZE-15, DISPLAY_HEIGHT)
+        self.display.setFixedSize(WINDOW_SIZE - 15, DISPLAY_HEIGHT)
         self.display.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.display.setReadOnly(True)
         self.general_layout.addWidget(self.display)
@@ -72,7 +72,7 @@ class PyCalc:
         self._connect_signals_and_slots()
 
     def _calculate_result(self):
-        result = self._evaluate(expression = self._view.display_text())
+        result = self._evaluate(expression=self._view.display_text())
         self._view.set_display_text(result)
 
     def _build_expression(self, sub_expression):
